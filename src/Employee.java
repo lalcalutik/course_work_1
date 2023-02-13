@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Employee {
     private String name;
     private String surname;
@@ -64,30 +66,21 @@ public class Employee {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return this.id == employee.getId()
-                && this.surname.equals(employee.getSurname())
-                && this.name.equals(employee.getName())
-                && this.middleName.equals(employee.getMiddleName())
-                && this.department == employee.getDepartment()
-                && this.salary == employee.getSalary();
-
+        return department == employee.department
+                && salary == employee.salary
+                && id == employee.id
+                && Objects.equals(name, employee.name)
+                && Objects.equals(surname, employee.surname)
+                && Objects.equals(middleName, employee.middleName);
     }
 
-        @Override
-
-        public int hashCode() {
-
-        String s = this.surname + this.name + this.middleName + this.id + "1231asdasd"; //добавил "соль" для уменьшения шансов колизии
-        return s.hashCode();
-        }
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, surname, middleName, department, salary, id);
+    }
 }
 
 

@@ -24,12 +24,15 @@ public class Main {
         printNameBook(createFullNameOfEmployees());
         System.out.println("_______________");
 
+
     }
 
     public static int countSalarySumPerMonth () {
         int salarySumPerMonth = 0;
-        for (int i = 0; ((i < employees.length) && employees[i] !=null) ; i++) {
-            salarySumPerMonth = salarySumPerMonth + employees[i].getSalary();
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i] != null) {
+                salarySumPerMonth = salarySumPerMonth + employees[i].getSalary();
+            }
         }
         return salarySumPerMonth;
     }
@@ -37,11 +40,13 @@ public class Main {
     public static Employee findEmployeeWithMinSalary(){
         int employeeWithMinSalary = employees[0].getSalary();
         int min = 0;
-        for (int i = 0; ((i <= employees.length - 1) && employees[i] != null); i++) {
-          if (employees[i].getSalary() < employeeWithMinSalary) {
-              employeeWithMinSalary = employees[i].getSalary();
-              min = i;
-          }
+        for (int i = 0; i <= employees.length - 1; i++) {
+            if (employees[i] != null) {
+                if (employees[i].getSalary() < employeeWithMinSalary) {
+                    employeeWithMinSalary = employees[i].getSalary();
+                    min = i;
+                }
+            }
         }
         return employees[min];
     }
@@ -49,26 +54,39 @@ public class Main {
     public static Employee findEmployeeWithMaxSalary(){
         int employeeWithMaxSalary = employees[0].getSalary();
         int max = 0;
-        for (int i = 0; ((i <= employees.length - 1) && employees[i] != null); i++) {
-            if (employees[i].getSalary() > employeeWithMaxSalary) {
-                employeeWithMaxSalary = employees[i].getSalary();
-                max = i;
+        for (int i = 0; i <= employees.length - 1; i++) {
+            if (employees[i] != null) {
+                if (employees[i].getSalary() > employeeWithMaxSalary) {
+                    employeeWithMaxSalary = employees[i].getSalary();
+                    max = i;
+                }
             }
         }
         return employees[max];
     }
 
-    public static int countAverageSalary() {
-        return  countSalarySumPerMonth() / Employee.count;
+    public static int countNotNullElementsInArray() {
+        int count = 0;
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i] != null) {
+                count++;
+            }
+        }
+        return  count;
+    }
+
+    public static double countAverageSalary() {
+        return  countSalarySumPerMonth() / countNotNullElementsInArray();
     }
 
     public static String[] createFullNameOfEmployees() {
         String[] fullNameOfEmployees = new String[Employee.count];
-        for (int i = 0; ((i <= employees.length - 1) && employees[i] != null ); i++){
+        for (int i = 0; i <= employees.length - 1; i++){
+            if (employees[i] != null) {
 
-            fullNameOfEmployees[i] = employees[i].getSurname() + " " + employees[i].getName() + " "
-                    + " " + employees[i].getMiddleName();
-
+                fullNameOfEmployees[i] = employees[i].getSurname() + " " + employees[i].getName() + " "
+                        + " " + employees[i].getMiddleName();
+            }
         }
         return fullNameOfEmployees;
     }
@@ -81,6 +99,5 @@ public class Main {
             
         }
     }
-
 
 }
